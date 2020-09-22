@@ -59,9 +59,13 @@ def main():
         im = draw_landmark(im, dets, sp_predictor)
 
         # allign face of the largest face in image
+        # largest face is done only for ease of use, you can put it in loop to allign all faces
         bbox = face_utils.largest_bbox(dets)
         if bbox:
-            alligned_face = im =  fa.align(orig_im ,gray, bbox)
+            alligned_face = fa.align(orig_im ,gray, bbox)
+            # shows aligned face image
+            cv2.imshow("alligned_face", alligned_face)
+
         
         # final image
         final_im = im

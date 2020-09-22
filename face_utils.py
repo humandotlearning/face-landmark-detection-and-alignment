@@ -70,7 +70,6 @@ class face_utils():
             y2 = max(bbox.top(),bbox.bottom())
             area = (x2-x1) * ( y2 - y1)
             if area > largest:
-                print(type(bbox))
                 dets = bbox
                 largest = area
                 
