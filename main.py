@@ -1,10 +1,14 @@
 import cv2
 import numpy as np
 import time
+import dlib
+from face_utils import face_utils
 
 def main():
     # output file name
     out_name = "media/tmp.avi"
+
+    detector = dlib.get_frontal_face_detector()
 
     # dimension of video
     (w,h) = (640,480)
@@ -26,6 +30,16 @@ def main():
 
         # flipping horizontally for better viewing
         im = cv2.flip(im, 1)
+
+        # image(bgr) to grayscale for face detection
+        gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+
+        # face detection
+        dets = detector(gray,1)
+
+        # draws detected faces
+        im = face_utils.draw_bbox(im, dets)
+
 
         
         # final image
