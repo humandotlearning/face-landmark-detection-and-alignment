@@ -30,10 +30,13 @@ while True:
     # final image
     final_im = im
 
+    # writes image in video
     out.write(final_im)
 
+    # shows image
     cv2.imshow("final_im", final_im)
 
+    # exit video when 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
