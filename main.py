@@ -24,6 +24,13 @@ detector = dlib.get_frontal_face_detector()
 # dimension of video
 (w,h) = (640,480)
 
+def showInMovedWindow(winname, img, x, y):
+    """
+        draws cv2 window at x,y coordinate
+    """
+    cv2.namedWindow(winname)        # Create a named window
+    cv2.moveWindow(winname, x, y)   # Move it to (x,y)
+    cv2.imshow(winname,img)
 
 def main():
 
@@ -64,7 +71,9 @@ def main():
         if bbox:
             alligned_face = fa.align(orig_im ,gray, bbox)
             # shows aligned face image
-            cv2.imshow("alligned_face", alligned_face)
+            # cv2.imshow("alligned_face", alligned_face)
+            # draws image window in the top-left corner of screen
+            showInMovedWindow("alligned_face", alligned_face, 10, 10)
 
         
         # final image
@@ -74,7 +83,11 @@ def main():
         out.write(final_im)
 
         # shows image
-        cv2.imshow("final_im", final_im)
+        # cv2.imshow("final_im", final_im)
+        # draws image window in the top-right corner of screen
+        showInMovedWindow("final_im", final_im, 30000, 0)
+
+        
 
         # exit video when 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
