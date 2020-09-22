@@ -58,3 +58,20 @@ class face_utils():
                     
         return image
 
+    def largest_bbox(dets):
+        """
+            returns largest detected face
+        """
+        largest = -999
+        for bbox in dets:
+            x1 = min(bbox.left(),bbox.right())
+            x2 = max(bbox.left(),bbox.right())
+            y1 = min(bbox.top(),bbox.bottom())
+            y2 = max(bbox.top(),bbox.bottom())
+            area = (x2-x1) * ( y2 - y1)
+            if area > largest:
+                print(type(bbox))
+                dets = bbox
+                largest = area
+                
+        return dets

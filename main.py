@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import time
 import dlib
+from imutils.face_utils import FaceAligner
+
 from face_utils import face_utils
 from face_landmark import draw_landmark
 
@@ -11,14 +13,19 @@ model_path = 'models/shape_predictor_68_face_landmarks.dat'
 # shape predictor for facial landmarks
 sp_predictor = dlib.shape_predictor(model_path)
 
+# desiredFaceWidth=256 default
+fa = FaceAligner(sp_predictor, desiredFaceWidth=256)
+
+# output file name
+out_name = "media/tmp.avi"
+
+detector = dlib.get_frontal_face_detector()
+
+# dimension of video
+(w,h) = (640,480)
+
+
 def main():
-    # output file name
-    out_name = "media/tmp.avi"
-
-    detector = dlib.get_frontal_face_detector()
-
-    # dimension of video
-    (w,h) = (640,480)
 
     # video capture object
     cam = cv2.VideoCapture(0)
@@ -37,6 +44,7 @@ def main():
 
         # flipping horizontally for better viewing
         im = cv2.flip(im, 1)
+        orig_im = im.copy()
 
         # image(bgr) to grayscale for face detection
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
@@ -49,6 +57,11 @@ def main():
 
         # draw face landmarks
         im = draw_landmark(im, dets, sp_predictor)
+
+        # allign face of the largest face in image
+        bbox = face_utils.largest_bbox(dets)
+        if bbox:
+            alligned_face = im =  fa.align(orig_im ,gray, bbox)
         
         # final image
         final_im = im
