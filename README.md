@@ -1,10 +1,8 @@
 # face-landmark-detection-and-alignment
 this implements face landmark detection and alignment code
 
-download the face landmark model from: 
-https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2
-
-and place the extracted file inside models
+> download the face landmark model from: 
+https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2 and place the extracted file inside models
 
 References:
 1. [face-alignment-with-opencv-and-python](https://www.pyimagesearch.com/2017/05/22/face-alignment-with-opencv-and-python/)
