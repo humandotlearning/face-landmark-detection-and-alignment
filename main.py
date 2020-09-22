@@ -6,10 +6,11 @@ from imutils.face_utils import FaceAligner
 
 from face_utils import face_utils
 from face_landmark import draw_landmark
+import config
 
 # Refer dlib documentation
 # download and extract from: https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2
-model_path = 'models/shape_predictor_68_face_landmarks.dat'
+model_path = config.MODEL_PTH
 # shape predictor for facial landmarks
 sp_predictor = dlib.shape_predictor(model_path)
 
@@ -17,12 +18,12 @@ sp_predictor = dlib.shape_predictor(model_path)
 fa = FaceAligner(sp_predictor, desiredFaceWidth=256)
 
 # output file name
-out_name = "media/tmp.avi"
+out_name = config.OUT_NAME
 
 detector = dlib.get_frontal_face_detector()
 
 # dimension of video
-(w,h) = (640,480)
+(w,h) = (config.W, config.H)
 
 def showInMovedWindow(winname, img, x, y):
     """
