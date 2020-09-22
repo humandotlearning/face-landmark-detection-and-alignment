@@ -2,47 +2,51 @@ import cv2
 import numpy as np
 import time
 
-# output file name
-out_name = "media/tmp.avi"
+def main():
+    # output file name
+    out_name = "media/tmp.avi"
 
-# dimension of video
-(w,h) = (640,480)
+    # dimension of video
+    (w,h) = (640,480)
 
-# video capture object
-cam = cv2.VideoCapture(0)
+    # video capture object
+    cam = cv2.VideoCapture(0)
 
-# video write object
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter(out_name, fourcc, 20.0, (w,h))
+    # video write object
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(out_name, fourcc, 20.0, (w,h))
 
-while True:
+    while True:
 
-    ret, im = cam.read()
+        ret, im = cam.read()
 
-    # checks if frames are being received or not 
-    if ret == False:
-        continue
+        # checks if frames are being received or not 
+        if ret == False:
+            continue
 
-    # flipping horizontally for better viewing
-    im = cv2.flip(im, 1)
+        # flipping horizontally for better viewing
+        im = cv2.flip(im, 1)
 
-    
-    # final image
-    final_im = im
+        
+        # final image
+        final_im = im
 
-    # writes image in video
-    out.write(final_im)
+        # writes image in video
+        out.write(final_im)
 
-    # shows image
-    cv2.imshow("final_im", final_im)
+        # shows image
+        cv2.imshow("final_im", final_im)
 
-    # exit video when 'q' is pressed
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        # exit video when 'q' is pressed
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-out.release()
-cam.release()
-cv2.destroyAllWindows()
+    out.release()
+    cam.release()
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main()
 
 
 
