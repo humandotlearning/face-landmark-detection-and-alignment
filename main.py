@@ -3,6 +3,13 @@ import numpy as np
 import time
 import dlib
 from face_utils import face_utils
+from face_landmark import draw_landmark
+
+# Refer dlib documentation
+# download and extract from: https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2
+model_path = 'models/shape_predictor_68_face_landmarks.dat'
+# shape predictor for facial landmarks
+sp_predictor = dlib.shape_predictor(model_path)
 
 def main():
     # output file name
@@ -40,7 +47,8 @@ def main():
         # draws detected faces
         im = face_utils.draw_bbox(im, dets)
 
-
+        # draw face landmarks
+        im = draw_landmark(im, dets, sp_predictor)
         
         # final image
         final_im = im
