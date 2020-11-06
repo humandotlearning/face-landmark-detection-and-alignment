@@ -23,7 +23,7 @@ out_name = config.OUT_NAME
 detector = dlib.get_frontal_face_detector()
 
 # dimension of video
-(w,h) = (config.W, config.H)
+(W,H) = (config.W, config.H)
 
 def showInMovedWindow(winname, img, x, y):
     """
@@ -40,7 +40,10 @@ def main():
 
     # video write object
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(out_name, fourcc, 20.0, (w,h))
+    out = cv2.VideoWriter(out_name, fourcc, 20.0, (W,H))
+
+    if config.aligned_face == True:
+        vid2 = cv2.VideoWriter(config.aligned_vid_name, fourcc, 20.0, (W,H))
 
     while True:
 
@@ -73,8 +76,17 @@ def main():
             alligned_face = fa.align(orig_im ,gray, bbox)
             # shows aligned face image
             # cv2.imshow("alligned_face", alligned_face)
+
+            w,h,_ = alligned_face.shape
+
+            v_width = int((W - w)/2)
+            h_width = int((H - h)/2)
+            padded_img = cv2.copyMakeBorder(alligned_face,h_width,h_width,v_width,v_width,cv2.BORDER_CONSTANT,value=(0,0,0))
             # draws image window in the top-left corner of screen
-            showInMovedWindow("alligned_face", alligned_face, 10, 10)
+            showInMovedWindow("alligned_face", padded_img, 10, 10)
+
+            # writes aligned image in video
+            vid2.write(padded_img)
 
         
         # final image
