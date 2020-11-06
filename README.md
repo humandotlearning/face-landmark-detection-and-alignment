@@ -9,8 +9,11 @@ run commands:
 ```
 pip install -r requirements.txt
 python main.py
+
 ```
-similar output should be displayed:
+> Note: checkout **config.py** to finetune some parameters
+
+## OUTPUT:
 
 ## face landmark
 ![face landmark](https://github.com/humandotlearning/face-landmark-detection-and-alignment/blob/master/media/face_landmarks.gif) 
